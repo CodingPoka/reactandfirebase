@@ -1,6 +1,18 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { auth } from "../firebase";
+
+// createUserWithEmailAndPassword is a function from firebase/auth and that allows us to create a new user with email and password. We will use this function in our handleRegister function to register a new user.
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
+//we will import db from firebase and we will use it to store the user data in firestore database.
+import { db } from "../firebase";
+
+//setDoc is used to save the data
+//doc is used to speify the location where we want to save
+import { doc, setDoc } from "firebase/firestore";
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -8,12 +20,46 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const handleRegister = () => {
-    if (name && email && password) {
-      alert("Registration Successful 🎉");
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    //checking all fields are filled or not
+
+    if (!name || !email || !password) {
+      alert("Please fill all the fields ❌");
+      return;
+    }
+
+    try {
+      //create a new user with email and password using createUserWithEmailAndPassword function from firrebaase/auth
+
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+
+      //get the user from userCredential
+      const user = userCredential.user;
+
+      //setDoc used to save the data in firestore. And it takes two argument. the first one  is doc and  is used to spefiy the location where we want to save the data and the second one is data what we want to save.
+
+      //doc is used to speify the location where we want to save the data in the firestore database. It takes three arguments: first database instance (db), second collection name("users") and thrid one document Id (user.uid). In this case, we are using the user's unique ID (uid) as the document ID to ensure that each user's data is stored in a separate document.
+      await setDoc(doc(db, "users", user.uid), {
+        name: name,
+        email: email,
+        uid: user.uid,
+        createdAt: new Date(),
+      });
+
+      alert("Registration Successful ✅");
       navigate("/login");
-    } else {
-      alert("Please fill all fields ❌");
+
+      setName("");
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.log(error.message);
+      alert("Registration Failed ❌");
     }
   };
 
