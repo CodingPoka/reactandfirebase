@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
 import Register from "./components/Register";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -67,21 +68,25 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: (
-      <div>
-        <AdminNavbar />
-        <Profile />
-        <AdminFooter />
-      </div>
+      <PrivateRoute>
+        <div>
+          <AdminNavbar />
+          <Profile />
+          <AdminFooter />
+        </div>
+      </PrivateRoute>
     ),
   },
   {
     path: "/dashboard",
     element: (
-      <div>
-        <AdminNavbar />
-        <Dashboard />
-        <AdminFooter />
-      </div>
+      <PrivateRoute>
+        <div>
+          <AdminNavbar />
+          <Dashboard />
+          <AdminFooter />
+        </div>
+      </PrivateRoute>
     ),
   },
   {
