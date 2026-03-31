@@ -16,6 +16,7 @@ const AdminNavbar = () => {
       await signOut(auth);
 
       alert("Logout Successful ✅");
+      localStorage.removeItem("user"); //remove the user data from localStorage when user logs out
 
       navigate("/login");
     } catch (error) {
