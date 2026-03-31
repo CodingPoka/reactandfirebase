@@ -14,7 +14,7 @@ import Dashboard from "./components/Dashboard";
 import Register from "./components/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
-
+import CurdItem from "./components/CurdItem";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -87,6 +87,18 @@ const router = createBrowserRouter([
         <div>
           <AdminNavbar />
           <Dashboard />
+          <AdminFooter />
+        </div>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/curditem",
+    element: (
+      <PrivateRoute>
+        <div>
+          <AdminNavbar />
+          <CurdItem />
           <AdminFooter />
         </div>
       </PrivateRoute>

@@ -30,6 +30,7 @@ const AdminNavbar = () => {
         <h1>Admin Navbar</h1>
       </div>
       <div className="flex gap-20">
+        <Link to="/curditem">Curd Item</Link>
         <Link to="/profile">Profile</Link>
         <Link to="/dashboard">Dashbaord</Link>
       </div>
