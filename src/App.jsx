@@ -13,6 +13,7 @@ import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
 import Register from "./components/Register";
 import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const router = createBrowserRouter([
   {
@@ -58,11 +59,13 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      <div>
-        <Navbar />
-        <Login />
-        <Footer />
-      </div>
+      <PublicRoute>
+        <div>
+          <Navbar />
+          <Login />
+          <Footer />
+        </div>
+      </PublicRoute>
     ),
   },
   {
@@ -92,11 +95,13 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: (
-      <div>
-        <Navbar />
-        <Register />
-        <Footer />
-      </div>
+      <PublicRoute>
+        <div>
+          <Navbar />
+          <Register />
+          <Footer />
+        </div>
+      </PublicRoute>
     ),
   },
 ]);
