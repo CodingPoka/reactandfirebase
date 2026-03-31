@@ -48,8 +48,14 @@ const Login = () => {
 
       //checking if the document exists or not. If it exists then we will get the user data from docSnap variable and store it in userData variable. We can use this userData variable to display the user data in dashboard page.
       if (docSnap.exists()) {
-        const userData = docSnap.data(); //get the user data from docSnap variable and store it in userData variable
+        const userData = docSnap.data(); //get the user data from docSnap variable and store it in userData variabled
+        
+        
+         //use localStorage to store the user data in the browser. So that we can use this data to display in the dashboard or profile page.
+        //we use JSON.stringify to convet the userData object into a string because localStorage can only store string data.
 
+        localStorage.setItem("user",JSON.stringify(userData));
+       
         console.log({
           name: userData.name,
           email: userData.email,
